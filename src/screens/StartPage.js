@@ -5,11 +5,12 @@ import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
 import SQLite from 'react-native-sqlite-storage';
 import { getBulas, setCat, resetPage } from '../actions/bulas';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import {
   RkButton, RkStyleSheet,
-  RkText, RkCard
+  RkText, RkCard, RkTextInput
 } from 'react-native-ui-kitten';
 
 
@@ -54,16 +55,26 @@ class Start extends Component {
     componentDidMount() {
     }
 
-fonts
+    _renderHeader = () => {
+      return (
+        <View style={styles.searchContainer}>
+          <RkTextInput autoCapitalize='none'
+                       autoCorrect={false}
+                       label={<RkText rkType='awesome'>{Icon.search}</RkText>}
+                       rkType='row'
+                       placeholder='Search'/>
+        </View>
+      )
+    }
 
     render() {
       return (
 
         <ScrollView style={{ backgroundColor: '#F5FCFF', flex: 1, padding: 10}}>
      
-
+  
         <ScrollView  contentContainerStyle={styles.container} >
-
+  
           {this.items}
 
     
@@ -89,15 +100,11 @@ fonts
 
   const styles = StyleSheet.create({
     container: { flex: 2, backgroundColor: '#F5FCFF', flexDirection: 'row', flexWrap: 'wrap' },
-    rootContainer: {
-      flexDirection: 'row',
-      flexWrap: 'wrap'
-    },
-    icon: {
-      marginBottom: 16
-    },
+    rootContainer: { flexDirection: 'row', flexWrap: 'wrap' },
+    icon: { marginBottom: 16 },
     welcome: { fontSize: 20, textAlign: 'center', margin: 10, },
     instructions: { textAlign: 'center', color: '#333333', marginBottom: 5, },
+    searchContainer: {  paddingHorizontal: 16, paddingVertical: 10, height: 60, alignItems: 'center' },
   });
 
 

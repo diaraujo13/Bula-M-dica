@@ -1,4 +1,4 @@
-import { LIST_ALL_BULAS, SET_BULAS, SET_CAT, ADD_PAGE, RESET_PAGE } from "../actions/types";
+import { LIST_ALL_BULAS, SET_BULAS, SET_CAT, ADD_PAGE, RESET_PAGE, SELECT_BULA } from "../actions/types";
 
  
 const initialState = {
@@ -6,6 +6,7 @@ const initialState = {
     searchKey: '',
     page: 1,
     category: 'A',
+    selected: '',
 };
 
 const bulasReducer = (state = initialState, action) => {
@@ -36,6 +37,13 @@ const bulasReducer = (state = initialState, action) => {
         return {
           ...state,
           page: 1
+        }
+      break;
+
+      case SELECT_BULA:
+        return {
+          ...state,
+          selected: action.payload
         }
       break;
 

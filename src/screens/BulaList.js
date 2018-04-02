@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Platform,  ScrollView, TouchableOpacity, FlatList, StyleSheet, Text, View } from 'react-native';
 import {connect} from 'react-redux';
 
-import { getBulas } from '../actions/bulas';
+import { getBulas, selectBula } from '../actions/bulas';
 import { RkCard } from 'react-native-ui-kitten';
 
 
@@ -17,19 +17,29 @@ class BulaList extends Component {
   render() {
     return (
         <ScrollView style={{flex: 1}}>
-
            
-           <Text style={{color: '#3783ba', fontWeight:'bold', margin: 5}}>{this.props.bulas.length} resultados retornados.</Text>
             <FlatList 
+            ListHeaderComponent={ ()=>{
+              return <Text style={{color: '#3783ba', fontWeight:'bold', margin: 5}}>{this.props.bulas.length} resultados retornados.</Text>
+            }}
               onEndReache={()=>this.props.loadBulas()}
               data={this.props.bulas}
 
               renderItem={ ({item, index}) => {
-                return (<RkCard style={{margin: 5}} key={item.id} rkType='shadowed'>
+                return (
+                
+                  <TouchableOpacity
+                  onPress={()=>{
+                    this.props.selectBula(item.id);
+                    this.props.navigator.push({screen: "Details"});
+                  }} 
+                  >        
+                <RkCard style={{margin: 5}} key={item.id} rkType='shadowed'>
                     <View rkCardHeader>
                       <Text>{item.title}</Text>
                     </View>
                 </RkCard>
+                </TouchableOpacity>        
                 )
               }}
               />
@@ -45,7 +55,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loadBulas: () => dispatch(getBulas())
+  loadBulas: () => dispatch(getBulas()),
+  selectBula: (id) => dispatch( selectBula(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BulaList)

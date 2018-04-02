@@ -1,4 +1,4 @@
-import { LIST_ALL_BULAS, SET_BULAS, SET_CAT, ADD_PAGE, RESET_PAGE } from "./types";
+import { LIST_ALL_BULAS, SET_BULAS, SET_CAT, ADD_PAGE, RESET_PAGE, SELECT_BULA } from "./types";
 import SQLite from 'react-native-sqlite-storage';
 
 var db = SQLite.openDatabase({
@@ -34,11 +34,10 @@ export const searchBulas = () => {
         let searchKey = getState().bulas.searchKey || '';
 
         db.transaction((tx) => {
-            tx.executeSql('SELECT id, title FROM bula WHERE title LIKE %' + searchKey +'%', [], (tx, results) => {
+            tx.executeSql('SELECT id, title FROM bula WHERE title LIKE %' + searchKey +'% LIMIT 5', [], (tx, results) => {
         
                 let rows = results.rows.raw(); 
               
-                
                 dispatch(setBulas(rows));
             });
         });
@@ -80,3 +79,9 @@ export const nextPage = () => {
      }
  };
  
+ export const selectBula = (id) => {
+     return {
+         type: SELECT_BULA,
+         payload: id
+     }
+ }

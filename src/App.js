@@ -10,6 +10,7 @@ import Historico from './screens/Historico';
 import Favoritos from './screens/Favoritos';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Details from './screens/Details';
 
 const MainStore = store();
 
@@ -18,6 +19,7 @@ Navigation.registerComponent('start', () => Start, MainStore, Provider);
 Navigation.registerComponent('BulaList', () => BulaList, MainStore, Provider);
 Navigation.registerComponent('Historico', () => Historico, MainStore, Provider);
 Navigation.registerComponent('Favoritos', () => Favoritos, MainStore, Provider);
+Navigation.registerComponent('Details', () => Details, MainStore, Provider);
 
 
 
