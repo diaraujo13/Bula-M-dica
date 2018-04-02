@@ -36,8 +36,8 @@ Navigation.startTabBasedApp({
     },
 
     {
-      label: 'Histórico', // tab label as appears under the icon in iOS (optional)
-      screren: 'Historico', // unique ID registered with Navigation.registerScreen
+      label: "Histórico", // tab label as appears under the icon in iOS (optional)
+      screen: 'Historico', // unique ID registered with Navigation.registerScreen
       icon: <Icon name='heart' color='#3783ba'/>, // local image asset for the tab icon unselected state (optional on iOS)
       selectedIcon: <Icon name='heart' color='#e1e8ed'/>, 
     }
