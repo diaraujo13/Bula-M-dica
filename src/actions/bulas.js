@@ -3,13 +3,7 @@ import SQLite from 'react-native-sqlite-storage';
 
 var db = SQLite.openDatabase({
     name : "bulas.db",
-    createFromLocation : 1}, 
-    (data)=>{
-        console.info("Conectado com sucesso");
-        console.info(data);
-    }, (err)=>{
-        console.log(err)
-    }
+    createFromLocation : 1} 
 );
 
 export const getBulas = () => {
@@ -19,19 +13,41 @@ export const getBulas = () => {
         let category = getState().bulas.category.toUpperCase() || 'A';
         let page = getState().bulas.page || 1;
 
-        console.log(page);
-        
         db.transaction((tx) => {
-            tx.executeSql('SELECT id, title FROM bula WHERE categ=(?) LIMIT ' + (10 * page), [category], (tx, results) => {
+            tx.executeSql('SELECT id, title FROM bula WHERE categ=(?)', [category], (tx, results) => {
         
                 let rows = results.rows.raw(); 
-                dispatch(nextPage());
+               
+                
                 dispatch(setBulas(rows));
             });
         });
             
     };
 };
+
+
+export const searchBulas = () => {
+    return (dispatch, getState) => {
+
+        
+        let searchKey = getState().bulas.searchKey || '';
+
+        db.transaction((tx) => {
+            tx.executeSql('SELECT id, title FROM bula WHERE title LIKE %' + searchKey +'%', [], (tx, results) => {
+        
+                let rows = results.rows.raw(); 
+              
+                
+                dispatch(setBulas(rows));
+            });
+        });
+            
+    };
+};
+
+
+
 
 export const setBulas = (rows) => {
 

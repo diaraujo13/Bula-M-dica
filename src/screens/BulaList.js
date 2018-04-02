@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, TouchableOpacity, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Platform,  ScrollView, TouchableOpacity, FlatList, StyleSheet, Text, View } from 'react-native';
 import {connect} from 'react-redux';
 
 import { getBulas } from '../actions/bulas';
@@ -16,13 +16,16 @@ class BulaList extends Component {
   }
   render() {
     return (
-        <View>
+        <ScrollView style={{flex: 1}}>
+
+           
+           <Text style={{color: '#3783ba', fontWeight:'bold', margin: 5}}>{this.props.bulas.length} resultados retornados.</Text>
             <FlatList 
-            onEndReache={()=>this.props.loadBulas()}
+              onEndReache={()=>this.props.loadBulas()}
               data={this.props.bulas}
 
               renderItem={ ({item, index}) => {
-                return (<RkCard style={{margin: 5}} key={index} rkType='shadowed'>
+                return (<RkCard style={{margin: 5}} key={item.id} rkType='shadowed'>
                     <View rkCardHeader>
                       <Text>{item.title}</Text>
                     </View>
@@ -30,7 +33,7 @@ class BulaList extends Component {
                 )
               }}
               />
-        </View>
+        </ScrollView>
     )
   }
 };

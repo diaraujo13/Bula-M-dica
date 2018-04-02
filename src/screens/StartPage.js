@@ -60,24 +60,7 @@ fonts
       return (
 
         <ScrollView style={{ backgroundColor: '#F5FCFF', flex: 1, padding: 10}}>
-      
-      <RkCard rkType='shadowed'>
-        <View rkCardHeader>
-          <Text style={{color: '#3783ba', fontWeight:'bold'}}>HISTÓRICO</Text>
-        </View>
-        <View rkCardContent>
-          <Text>Sem itens adicionados ao guia rápido</Text>
-        </View>
-    </RkCard>
-      
-      <RkCard rkType='shadowed'>
-        <View rkCardHeader>
-          <Text style={{color: '#3783ba', fontWeight:'bold'}}>GUIA RÁPIDO</Text>
-        </View>
-        <View rkCardContent>
-          <Text>Sem itens adicionados ao guia rápido</Text>
-        </View>
-    </RkCard>
+     
 
         <ScrollView  contentContainerStyle={styles.container} >
 

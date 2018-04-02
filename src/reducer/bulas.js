@@ -3,6 +3,7 @@ import { LIST_ALL_BULAS, SET_BULAS, SET_CAT, ADD_PAGE, RESET_PAGE } from "../act
  
 const initialState = {
     bulas: [],
+    searchKey: '',
     page: 1,
     category: 'A',
 };
