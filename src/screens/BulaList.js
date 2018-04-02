@@ -6,7 +6,7 @@ import { getBulas } from '../actions/bulas';
 import { RkCard } from 'react-native-ui-kitten';
 
 
-class AboutPage extends Component {
+class BulaList extends Component {
   constructor(){
     super();
   }
@@ -17,9 +17,8 @@ class AboutPage extends Component {
   render() {
     return (
         <View>
-            <Text> About </Text>
-
             <FlatList 
+            onEndReache={()=>this.props.loadBulas()}
               data={this.props.bulas}
 
               renderItem={ ({item, index}) => {
@@ -46,4 +45,4 @@ const mapDispatchToProps = dispatch => ({
   loadBulas: () => dispatch(getBulas())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AboutPage)
+export default connect(mapStateToProps, mapDispatchToProps)(BulaList)

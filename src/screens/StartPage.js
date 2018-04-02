@@ -4,7 +4,7 @@ import startTab from '../nav/tabs';
 import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
 import SQLite from 'react-native-sqlite-storage';
-import { getBulas, setCat } from '../actions/bulas';
+import { getBulas, setCat, resetPage } from '../actions/bulas';
 
 
 import {
@@ -16,6 +16,11 @@ import {
 const categoriesArray = "abcdefghijklmnopqrstuvwxyz".split("");
 
 class Start extends Component {
+  static navigatorStyle = {
+    navBarComponentAlignment: 'center', // center/fill
+    navBarTextColor: '#ffffff',
+    navBarBackgroundColor: '#3783ba',
+  };
 
    items = null;
    height = +Dimensions.get('window').height;
@@ -34,8 +39,9 @@ class Start extends Component {
             style={{ width: (width/3)-20, margin: 5, height: 80, backgroundColor: 'rgba(0,0,0,0.1)'}}
             key={index}
             onPress={() => {
+                this.props.resetPage();
                 this.props.setCat(route);
-                this.props.navigator.push({ screen: 'about', }); 
+                this.props.navigator.push({ screen: 'BulaList', }); 
             }}>
   
             <RkText style={{fontWeight: 'bold', color: '#444444'}} rkType='xxlarge'>{route.toUpperCase()}</RkText>
@@ -48,16 +54,16 @@ class Start extends Component {
     componentDidMount() {
     }
 
-
+fonts
 
     render() {
       return (
 
-        <View style={{ backgroundColor: '#F5FCFF', flex: 1, padding: 10}}>
+        <ScrollView style={{ backgroundColor: '#F5FCFF', flex: 1, padding: 10}}>
       
       <RkCard rkType='shadowed'>
         <View rkCardHeader>
-          <Text>HISTÓRICO</Text>
+          <Text style={{color: '#3783ba', fontWeight:'bold'}}>HISTÓRICO</Text>
         </View>
         <View rkCardContent>
           <Text>Sem itens adicionados ao guia rápido</Text>
@@ -66,7 +72,7 @@ class Start extends Component {
       
       <RkCard rkType='shadowed'>
         <View rkCardHeader>
-          <Text>Δ GUIA RÁPIDO</Text>
+          <Text style={{color: '#3783ba', fontWeight:'bold'}}>GUIA RÁPIDO</Text>
         </View>
         <View rkCardContent>
           <Text>Sem itens adicionados ao guia rápido</Text>
@@ -76,8 +82,10 @@ class Start extends Component {
         <ScrollView  contentContainerStyle={styles.container} >
 
           {this.items}
+
+    
         </ScrollView>
-        </View>
+        </ScrollView>
       );
     }
   }
@@ -92,6 +100,7 @@ class Start extends Component {
   const mapDispatchToProps = dispatch => ({
     loadBulas: (page, cat) => dispatch(getBulas(page, cat)),
     setCat: (cat) => dispatch(setCat(cat)),
+    resetPage: () => dispatch(resetPage()),
   });
   
 

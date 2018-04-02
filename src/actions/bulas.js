@@ -1,4 +1,4 @@
-import { LIST_ALL_BULAS, SET_BULAS, SET_CAT } from "./types";
+import { LIST_ALL_BULAS, SET_BULAS, SET_CAT, ADD_PAGE, RESET_PAGE } from "./types";
 import SQLite from 'react-native-sqlite-storage';
 
 var db = SQLite.openDatabase({
@@ -17,11 +17,15 @@ export const getBulas = () => {
 
         
         let category = getState().bulas.category.toUpperCase() || 'A';
+        let page = getState().bulas.page || 1;
 
+        console.log(page);
+        
         db.transaction((tx) => {
-            tx.executeSql('SELECT * FROM bula WHERE categ=(?) LIMIT 10 ', [category], (tx, results) => {
+            tx.executeSql('SELECT id, title FROM bula WHERE categ=(?) LIMIT ' + (10 * page), [category], (tx, results) => {
         
                 let rows = results.rows.raw(); 
+                dispatch(nextPage());
                 dispatch(setBulas(rows));
             });
         });
@@ -45,4 +49,18 @@ export const setCat = (category) => {
     }
 };
 
+export const resetPage = () => {
 
+    return {
+         type: RESET_PAGE
+     }
+ };
+ 
+
+export const nextPage = () => {
+
+    return {
+         type: ADD_PAGE
+     }
+ };
+ 
