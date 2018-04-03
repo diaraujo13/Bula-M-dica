@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Platform,  ScrollView, TouchableOpacity, FlatList, StyleSheet, Text, View } from 'react-native';
 import {connect} from 'react-redux';
 
-import { getBulas, selectBula } from '../actions/bulas';
+import { getBulas, selectBula, addHistory } from '../actions/bulas';
 import { RkCard } from 'react-native-ui-kitten';
 
 
@@ -31,7 +31,7 @@ class BulaList extends Component {
                   <TouchableOpacity
                   onPress={()=>{
                     this.props.selectBula(item.id);
-                    this.props.navigator.push({screen: "Details"});
+                    this.props.navigator.push({screen: "Details", title: item.title});
                   }} 
                   >        
                 <RkCard style={{margin: 5}} key={item.id} rkType='shadowed'>
@@ -56,7 +56,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
   loadBulas: () => dispatch(getBulas()),
-  selectBula: (id) => dispatch( selectBula(id))
+  selectBula: (id) => dispatch( selectBula(id)),
+  addHistory: () => dispatch(addHistory())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BulaList)

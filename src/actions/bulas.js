@@ -1,10 +1,12 @@
-import { LIST_ALL_BULAS, SET_BULAS, SET_CAT, ADD_PAGE, RESET_PAGE, SELECT_BULA } from "./types";
+import { LIST_ALL_BULAS, SET_BULAS, SET_CAT, ADD_PAGE, RESET_PAGE, SELECT_BULA, DETAILS_BULA } from "./types";
 import SQLite from 'react-native-sqlite-storage';
 
 var db = SQLite.openDatabase({
     name : "bulas.db",
     createFromLocation : 1} 
 );
+
+db.executeSql("CREATE TABLE IF NOT EXISTS historico ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `bulaId` INTEGER, FOREIGN KEY(`bulaId`) REFERENCES `bula`(`id`) )");
 
 export const getBulas = () => {
     return (dispatch, getState) => {
@@ -29,7 +31,6 @@ export const getBulas = () => {
 
 export const searchBulas = () => {
     return (dispatch, getState) => {
-
         
         let searchKey = getState().bulas.searchKey || '';
 
@@ -46,8 +47,42 @@ export const searchBulas = () => {
 };
 
 
+export const addHistory = () => {
+    return (dispatch, getState) => {
+        let selected = getState().bulas.selected || '';
+
+        db.transaction((tx) => {
+            tx.executeSql('INSERT INTO historico (bulaId) VALUES (' + selected +')', [], (tx, results) => {
+                console.log("Adicionado ao histórico")
+            });
+        });
+            
+    };
+};
 
 
+export const bulaDetails = () => {
+    return (dispatch, getState) => {
+        let selected = getState().bulas.selected || '';
+
+        db.transaction((tx) => {
+            tx.executeSql('SELECT * FROM bula WHERE id = ' + selected, [], (tx, results) => {
+                let rows = results.rows.raw(); 
+
+                dispatch(selectBulaDetails(rows[0]))
+            });
+        });
+            
+    };
+};
+
+
+export const selectBulaDetails = (bula) => {
+    return {
+        type: DETAILS_BULA,
+        payload: bula
+    }
+}
 export const setBulas = (rows) => {
 
    return {

@@ -14,7 +14,7 @@ import {
 } from 'react-native-ui-kitten';
 
 
-const categoriesArray = "abcdefghijklmnopqrstuvwxyz".split("");
+const categoriesArray = "ABCDEFGHIJKLMNOPQRSTUVWXY".split("");
 
 class Start extends Component {
   static navigatorStyle = {
@@ -42,7 +42,7 @@ class Start extends Component {
             onPress={() => {
                 this.props.resetPage();
                 this.props.setCat(route);
-                this.props.navigator.push({ screen: 'BulaList', }); 
+                this.props.navigator.push({ screen: 'BulaList',  title: route}); 
             }}>
   
             <RkText style={{fontWeight: 'bold', color: '#444444'}} rkType='xxlarge'>{route.toUpperCase()}</RkText>
@@ -86,7 +86,6 @@ class Start extends Component {
 
   /** listen state */
   const mapStateToProps = (state) => ({
-    places: state.places.places,
     bulas: state.bulas.bulas 
   })
   
