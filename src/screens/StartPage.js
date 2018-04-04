@@ -4,7 +4,7 @@ import startTab from '../nav/tabs';
 import { Navigation } from 'react-native-navigation';
 import { connect } from 'react-redux';
 import SQLite from 'react-native-sqlite-storage';
-import { getBulas, setCat, resetPage } from '../actions/bulas';
+import { getBulas, setCat, resetPage } from '../actions/bulas/bulas';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 

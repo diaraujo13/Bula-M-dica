@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Platform,  ScrollView, TouchableOpacity, FlatList, StyleSheet, Text, View } from 'react-native';
 import {connect} from 'react-redux';
 
-import { getBulas, selectBula, addHistory } from '../actions/bulas';
+import { getBulas, selectBula, addHistory } from '../actions/bulas/bulas';
 import { RkCard } from 'react-native-ui-kitten';
 
 
