@@ -21,6 +21,7 @@ class Start extends Component {
     navBarComponentAlignment: 'center', // center/fill
     navBarTextColor: '#ffffff',
     navBarBackgroundColor: '#3783ba',
+    statusBarColor: '#3783ba'
   };
 
    items = null;

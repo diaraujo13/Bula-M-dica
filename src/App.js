@@ -26,7 +26,7 @@ Navigation.registerComponent('Details', () => Details, MainStore, Provider);
 Promise.all([
 Icon.getImageSource("view-grid", 30),
 Icon.getImageSource("history", 30),
-Icon.getImageSource("heart-outline", 30),
+Icon.getImageSource("magnify", 30),
 ]).then(results => {
 
 
@@ -45,12 +45,16 @@ Navigation.startTabBasedApp({
       icon: results[1]
     },
     {
-      title:'Favoritos',
-      label: "Favoritos", // tab label as appears under the icon in iOS (optional)
+      title:'Buscar',
+      label: "Buscar", // tab label as appears under the icon in iOS (optional)
       screen: 'Favoritos', // unique ID registered with Navigation.registerScreen
       icon: results[2]
     }
-  ]});
+  ],
+
+  appStyle: {
+    keepStyleAcrossPush: true
+  }});
 })
 
 

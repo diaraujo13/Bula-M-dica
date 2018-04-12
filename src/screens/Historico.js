@@ -7,6 +7,13 @@ import { selectHistorico } from '../actions/bulas/historico';
 import { selectBula } from '../actions/bulas/bulas';
  class Historico extends Component {
 
+  static navigatorStyle = {
+    navBarComponentAlignment: 'center', // center/fill
+    navBarTextColor: '#ffffff',
+    navBarBackgroundColor: '#ddd054',
+    statusBarColor: '#ddd054'
+  };
+
   constructor(){
     super();
   }
